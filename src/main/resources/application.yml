@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: asb-consumer
+
+server:
+  port: 8082
+
+azure:
+  servicebus:
+    connection-string: ${ASB_CONNECTION_STRING}
+    topic-name: ${ASB_TOPIC_NAME:prices-updates}
+    subscription-name: ${ASB_SUBSCRIPTION_NAME:local_02_pos_30}
+    retry:
+      max-retries: 3
+      exponential-backoff: true
+
+logging:
+  file:
+    name: logger.log
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    com.ferrazp.asbconsumer: DEBUG
+    com.azure.messaging.servicebus: INFO
+    com.azure.core.amqp: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always

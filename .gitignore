@@ -1,0 +1,12 @@
+build/
+bin/
+.gradle/
+*.jar
+*.war
+.env
+application-local.yml
+.idea/
+*.iml
+.vscode/
+!gradle/wrapper/gradle-wrapper.jar
+logger.log
