@@ -7,6 +7,7 @@ Consumer de Azure Service Bus para el topic `prices-updates`. Escucha mensajes d
 - Java 19
 - Spring Boot 3.3.5
 - Azure Messaging ServiceBus 7.17.9
+- Application Insights (OpenTelemetry)
 
 ## Requisitos
 
@@ -33,6 +34,14 @@ Consumer de Azure Service Bus para el topic `prices-updates`. Escucha mensajes d
 GET http://localhost:8082/actuator/health
 ```
 
+## Telemetría
+
+Cada mensaje recibido crea un span `PriceConsumer.processMessage` en OpenTelemetry con atributos:
+- `message.id`, `message.subject`
+- `article.id`, `price.list.id`, `amount.value`
+
+Si configurás `APPLICATIONINSIGHTS_CONNECTION_STRING`, los spans se exportan automáticamente a Application Insights.
+
 ## Logs
 
 Todo (conexiones ASB + mensajes recibidos) se loguea en `logger.log` en la raíz del proyecto.
@@ -43,3 +52,4 @@ Todo (conexiones ASB + mensajes recibidos) se loguea en `logger.log` en la raíz
 |----------|-------------|---------|
 | `ASB_TOPIC_NAME` | Nombre del topic | `prices-updates` |
 | `ASB_SUBSCRIPTION_NAME` | Nombre de la subscripción | `local_02_pos_30` |
+| `APPLICATIONINSIGHTS_CONNECTION_STRING` | Connection string de Application Insights | (opcional) |

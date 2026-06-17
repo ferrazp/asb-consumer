@@ -14,6 +14,9 @@ azure:
       max-retries: 3
       exponential-backoff: true
 
+applicationinsights:
+  connection-string: ${APPLICATIONINSIGHTS_CONNECTION_STRING:}
+
 logging:
   file:
     name: logger.log
