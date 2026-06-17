@@ -25,7 +25,7 @@ public class AsbConfig {
                 .connectionString(connectionString);
     }
 
-    @Bean(initMethod = "start", destroyMethod = "close")
+    @Bean(destroyMethod = "close")
     public ServiceBusProcessorClient serviceBusProcessorClient(
             ServiceBusClientBuilder clientBuilder,
             com.ferrazp.asbconsumer.service.PriceConsumer processor) {
