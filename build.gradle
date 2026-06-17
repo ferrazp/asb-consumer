@@ -13,6 +13,8 @@ java {
     }
 }
 
+ext['opentelemetry.version'] = '1.58.0'
+
 configurations {
     compileOnly {
         extendsFrom(annotationProcessor)
@@ -29,7 +31,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'com.azure:azure-messaging-servicebus:7.17.9'
     implementation 'com.azure.spring:spring-cloud-azure-starter-monitor:7.2.0'
-    implementation 'io.opentelemetry.instrumentation:opentelemetry-instrumentation-annotations:2.12.0'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
