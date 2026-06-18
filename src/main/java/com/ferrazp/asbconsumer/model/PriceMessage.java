@@ -14,7 +14,7 @@ public class PriceMessage {
     @Positive
     private double amountValue;
 
-    private String taxeRule;
+    private String taxRuleId;
     private Date activation;
     private Date promotionPriceVto;
     private Date promotionPriceActivation;
@@ -43,8 +43,8 @@ public class PriceMessage {
     public double getAmountValue() { return amountValue; }
     public void setAmountValue(double amountValue) { this.amountValue = amountValue; }
 
-    public String getTaxeRule() { return taxeRule; }
-    public void setTaxeRule(String taxeRule) { this.taxeRule = taxeRule; }
+    public String getTaxRuleId() { return taxRuleId; }
+    public void setTaxRuleId(String taxRuleId) { this.taxRuleId = taxRuleId; }
 
     public Date getActivation() { return activation; }
     public void setActivation(Date activation) { this.activation = activation; }
