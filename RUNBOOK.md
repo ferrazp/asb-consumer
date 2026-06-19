@@ -13,6 +13,7 @@
 | `ASB_CONNECTION_STRING` | Connection string de Azure Service Bus | Requerido |
 | `ASB_TOPIC_NAME` | Nombre del topic a suscribirse | `prices-updates` |
 | `ASB_SUBSCRIPTION_NAME` | Nombre de la subscripción del topic | `local_02_pos_30` |
+| `APPLICATIONINSIGHTS_CONNECTION_STRING` | Connection string de Application Insights | Requerido para telemetría |
 
 > **Importante:** La subscripción debe existir en el topic de Azure Service Bus.
 > Si no existe, créala desde Azure Portal o Azure CLI:
@@ -36,7 +37,10 @@ $env:ASB_CONNECTION_STRING = "Endpoint=sb://..."
 $env:ASB_TOPIC_NAME = "prices-updates"
 $env:ASB_SUBSCRIPTION_NAME = "prices-consumer-dev"
 
-# Levantar en puerto 8081
+# Setear Application Insights
+$env:APPLICATIONINSIGHTS_CONNECTION_STRING = "InstrumentationKey=..."
+
+# Levantar en puerto 8082
 .\gradlew.bat bootRun --no-daemon --args="--spring.profiles.active=local"
 ```
 
@@ -71,13 +75,12 @@ Agregar a `settings.json`:
       "request": "launch",
       "mainClass": "com.ferrazp.asbconsumer.AsbConsumerApplication",
       "projectName": "asb-consumer",
-      "args": "--spring.profiles.active=local",
+      "args": "--spring.profiles.active=local --server.port=8082",
       "env": {
         "JAVA_HOME": "C:\\Program Files\\Java\\jdk-19",
-        "ASB_CONNECTION_STRING": "Endpoint=sb://...",
-        "ASB_TOPIC_NAME": "prices-updates",
-        "ASB_SUBSCRIPTION_NAME": "prices-consumer-dev"
-      }
+        "APPLICATIONINSIGHTS_CONNECTION_STRING": "InstrumentationKey=..."
+      },
+      "vmArgs": "-Dlogging.file.name=logger.log"
     }
   ]
 }
@@ -97,7 +100,7 @@ La connection string se configura en:
 - **PowerShell**: `$env:APPLICATIONINSIGHTS_CONNECTION_STRING = "..."`
 - **Docker**: `docker-compose.yml` → `APPLICATIONINSIGHTS_CONNECTION_STRING`
 
-> ⚠️ La env var `APPLICATIONINSIGHTS_CONNECTION_STRING` tiene prioridad sobre el YAML. Si está vacía o ausente, el exportador a Azure no se configura y los spans se pierden.
+> ⚠️ La env var `APPLICATIONINSIGHTS_CONNECTION_STRING` tiene prioridad sobre el YAML. Si está vacía o ausente, el exportador a Azure no se configura y los spans se pierden (se verá el warning `Unable to find the Application Insights connection string` en los logs de arranque).
 
 ### Telemetría emitida
 
