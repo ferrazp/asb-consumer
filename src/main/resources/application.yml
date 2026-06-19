@@ -13,6 +13,8 @@ azure:
     retry:
       max-retries: 3
       exponential-backoff: true
+  applicationinsights:
+    connection-string: ${APPLICATIONINSIGHTS_CONNECTION_STRING:}
 
 applicationinsights:
   connection-string: ${APPLICATIONINSIGHTS_CONNECTION_STRING:}
@@ -26,6 +28,8 @@ logging:
     com.ferrazp.asbconsumer: DEBUG
     com.azure.messaging.servicebus: INFO
     com.azure.core.amqp: INFO
+    io.opentelemetry: DEBUG
+    com.azure.monitor.opentelemetry: DEBUG
 
 management:
   endpoints:

@@ -83,8 +83,64 @@ Agregar a `settings.json`:
 }
 ```
 
+## Application Insights
+
+### Configuración
+
+| Variable | Descripción | Default |
+|----------|-------------|---------|
+| `APPLICATIONINSIGHTS_CONNECTION_STRING` | Connection string de Application Insights | Requerido para telemetría |
+
+La connection string se configura en:
+- **Local**: `application-local.yml` (ignorado por git)
+- **VSCode**: `launch.json` → `env.APPLICATIONINSIGHTS_CONNECTION_STRING`
+- **PowerShell**: `$env:APPLICATIONINSIGHTS_CONNECTION_STRING = "..."`
+- **Docker**: `docker-compose.yml` → `APPLICATIONINSIGHTS_CONNECTION_STRING`
+
+> ⚠️ La env var `APPLICATIONINSIGHTS_CONNECTION_STRING` tiene prioridad sobre el YAML. Si está vacía o ausente, el exportador a Azure no se configura y los spans se pierden.
+
+### Telemetría emitida
+
+Cada mensaje recibido crea un span `PriceConsumer.processMessage` con estos atributos en `customDimensions`:
+
+| Atributo | Descripción |
+|----------|-------------|
+| `asb.system` | Siempre `AzureServiceBus` |
+| `asb.destination` | Topic del mensaje |
+| `asb.subscription` | Subscription que consumió el mensaje |
+| `asb.message.id` | ID del mensaje ASB |
+| `article.id` | ID del artículo |
+| `price.list.id` | ID de lista de precios |
+| `amount.value` | Valor del precio |
+| `consumer.status` | Siempre `consumed` |
+
+### Verificar en Azure Portal
+
+```
+Application Insights → Logs → KQL
+
+dependencies
+| where timestamp > ago(1h)
+| where name == "PriceConsumer.processMessage"
+| extend msg = tostring(customDimensions)
+| project timestamp, msg
+| order by timestamp desc
+```
+
+### Correlación producer ↔ consumer
+
+```kusto
+dependencies
+| where timestamp > ago(1h)
+| where name in ("message.send", "PriceConsumer.processMessage")
+| extend role = iff(name == "message.send", "producer", "consumer"),
+         msg = tostring(customDimensions)
+| project timestamp, role, msg
+| order by timestamp desc
+```
+
 ## Health Check
 
 ```
-GET http://localhost:8081/actuator/health
+GET http://localhost:8082/actuator/health
 ```

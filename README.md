@@ -36,11 +36,20 @@ GET http://localhost:8082/actuator/health
 
 ## Telemetría
 
-Cada mensaje recibido crea un span `PriceConsumer.processMessage` en OpenTelemetry con atributos:
-- `message.id`, `message.subject`
-- `article.id`, `price.list.id`, `amount.value`
+Cada mensaje recibido crea un span `PriceConsumer.processMessage` en OpenTelemetry. Si configurás `APPLICATIONINSIGHTS_CONNECTION_STRING`, los spans se exportan automáticamente a Application Insights.
 
-Si configurás `APPLICATIONINSIGHTS_CONNECTION_STRING`, los spans se exportan automáticamente a Application Insights.
+Atributos en `customDimensions`:
+
+| Atributo | Descripción |
+|----------|-------------|
+| `asb.system` | Siempre `AzureServiceBus` |
+| `asb.destination` | Topic del mensaje |
+| `asb.subscription` | Subscription que consumió el mensaje |
+| `asb.message.id` | ID del mensaje ASB |
+| `article.id` | ID del artículo |
+| `price.list.id` | ID de lista de precios |
+| `amount.value` | Valor del precio |
+| `consumer.status` | Siempre `consumed` |
 
 ## Logs
 
