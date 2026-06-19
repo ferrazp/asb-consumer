@@ -22,7 +22,7 @@
 >   --resource-group <rg> `
 >   --namespace-name <namespace> `
 >   --topic-name prices-updates `
->   --name prices-consumer-dev
+>   --name sub-prices-terminal_00010001
 > ```
 
 ## PowerShell
@@ -35,7 +35,7 @@ $env:Path = "$env:JAVA_HOME\bin;$env:Path"
 # Setear connection string (usar el mismo que el producer)
 $env:ASB_CONNECTION_STRING = "Endpoint=sb://..."
 $env:ASB_TOPIC_NAME = "prices-updates"
-$env:ASB_SUBSCRIPTION_NAME = "prices-consumer-dev"
+$env:ASB_SUBSCRIPTION_NAME = "sub-prices-terminal_00010001"
 
 # Setear Application Insights
 $env:APPLICATIONINSIGHTS_CONNECTION_STRING = "InstrumentationKey=..."
@@ -80,7 +80,7 @@ Agregar a `settings.json`:
         "JAVA_HOME": "C:\\Program Files\\Java\\jdk-19",
         "APPLICATIONINSIGHTS_CONNECTION_STRING": "InstrumentationKey=..."
       },
-      "vmArgs": "-Dlogging.file.name=logger.log"
+      "vmArgs": "-Dlogging.file.name=logger.log -Dapplicationinsights.connection-string=InstrumentationKey=..."
     }
   ]
 }

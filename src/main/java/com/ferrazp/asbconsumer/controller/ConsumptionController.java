@@ -1,6 +1,7 @@
 package com.ferrazp.asbconsumer.controller;
 
 import com.ferrazp.asbconsumer.service.ConsumptionManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +16,15 @@ import java.util.Map;
 public class ConsumptionController {
 
     private final ConsumptionManager consumptionManager;
+    private final String topicName;
+    private final String subscriptionName;
 
-    public ConsumptionController(ConsumptionManager consumptionManager) {
+    public ConsumptionController(ConsumptionManager consumptionManager,
+                                 @Value("${azure.servicebus.topic-name}") String topicName,
+                                 @Value("${azure.servicebus.subscription-name}") String subscriptionName) {
         this.consumptionManager = consumptionManager;
+        this.topicName = topicName;
+        this.subscriptionName = subscriptionName;
     }
 
     @GetMapping("/status")
@@ -85,7 +92,7 @@ public class ConsumptionController {
                 <body>
                 <div class="card">
                     <h1>ASB Consumer</h1>
-                    <p class="subtitle">topic: prices-updates / sub: local_02_pos_30</p>
+                    <p class="subtitle">topic: __TOPIC__ / sub: __SUB__</p>
                     <div id="badge" class="status-badge">---</div>
                     <div class="spinner" id="spinner"></div>
                     <button class="toggle-btn" id="toggleBtn" onclick="toggle()">---</button>
@@ -118,6 +125,6 @@ public class ConsumptionController {
                 </script>
                 </body>
                 </html>
-                """;
+                """.replace("__TOPIC__", topicName).replace("__SUB__", subscriptionName);
     }
 }

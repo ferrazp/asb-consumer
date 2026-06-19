@@ -1,6 +1,6 @@
 # asb-consumer
 
-Consumer de Azure Service Bus para el topic `prices-updates`. Escucha mensajes de precio usando la subscription `local_02_pos_30`.
+Consumer de Azure Service Bus para el topic `prices-updates`. Escucha mensajes de precio usando la subscription configurada via `ASB_SUBSCRIPTION_NAME`.
 
 ## Stack
 
@@ -13,7 +13,7 @@ Consumer de Azure Service Bus para el topic `prices-updates`. Escucha mensajes d
 
 - JDK 19 (`C:\Program Files\Java\jdk-19`)
 - Gradle Wrapper (incluido)
-- Suscripción `local_02_pos_30` existente en el topic `prices-updates` de ASB
+- Suscripción configurada en `ASB_SUBSCRIPTION_NAME` existente en el topic `prices-updates` de ASB
 
 ## Ejecutar
 
