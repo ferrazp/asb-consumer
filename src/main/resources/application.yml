@@ -9,7 +9,7 @@ azure:
   servicebus:
     connection-string: ${ASB_CONNECTION_STRING}
     topic-name: ${ASB_TOPIC_NAME:prices-updates}
-    subscription-name: ${ASB_SUBSCRIPTION_NAME:local_02_pos_30}
+    subscription-name: ${ASB_SUBSCRIPTION_NAME:sub-prices-terminal_00010001}
     retry:
       max-retries: 3
       exponential-backoff: true

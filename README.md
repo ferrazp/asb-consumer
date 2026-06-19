@@ -60,5 +60,5 @@ Todo (conexiones ASB + mensajes recibidos) se loguea en `logger.log` en la raíz
 | Variable | Descripción | Default |
 |----------|-------------|---------|
 | `ASB_TOPIC_NAME` | Nombre del topic | `prices-updates` |
-| `ASB_SUBSCRIPTION_NAME` | Nombre de la subscripción | `local_02_pos_30` |
+| `ASB_SUBSCRIPTION_NAME` | Nombre de la subscripción | `sub-prices-terminal_00010001` |
 | `APPLICATIONINSIGHTS_CONNECTION_STRING` | Connection string de Application Insights | (opcional) |

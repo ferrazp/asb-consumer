@@ -12,7 +12,7 @@
 |----------|-------------|---------|
 | `ASB_CONNECTION_STRING` | Connection string de Azure Service Bus | Requerido |
 | `ASB_TOPIC_NAME` | Nombre del topic a suscribirse | `prices-updates` |
-| `ASB_SUBSCRIPTION_NAME` | Nombre de la subscripción del topic | `local_02_pos_30` |
+| `ASB_SUBSCRIPTION_NAME` | Nombre de la subscripción del topic | `sub-prices-terminal_00010001` |
 | `APPLICATIONINSIGHTS_CONNECTION_STRING` | Connection string de Application Insights | Requerido para telemetría |
 
 > **Importante:** La subscripción debe existir en el topic de Azure Service Bus.
