@@ -10,3 +10,4 @@ application-local.yml
 .vscode/
 !gradle/wrapper/gradle-wrapper.jar
 logger.log
+logger.log.*
